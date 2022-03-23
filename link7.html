@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inter-States</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="link7.css" />
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="./demo.html">Home</a>
+        <a href="./link1.html">India</a>
+        <a href="./link2.html">Global</a>
+        <a href="./link7.html">Inter-States</a>
+        <a href="./link3.html">Prevention</a>
+        <a href="./link4.html">Symptoms</a>
+        <a href="./link8.html">Treatment</a>
+      </div>
+
+    <h2><div class="head">C<span class="fas fa-virus"></span>VID-19 STATE WISE IN INDIA</div></h2>
+
+    <div class="container">
+        <table>
+            <tr>
+                <th><b class=".total-cases">S.No</b></th>
+                <th><b class=".total-cases">Last refreshed</b></th>
+                <th><b class=".total-cases">Location</b></th>
+                <th><b class=".total-cases">TOTAL CONFIRMED</b></th>
+                <th><b class="recovered">RECOVERED</b></th>
+                <th><b class=".total-deaths">DEATHS</b></th>
+            </tr>
+
+        </table>
+    </div>
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        const totalCases = $(".total-cases");
+        const deaths = $(".total-deaths");
+        const recovered = $(".recovered");
+        var length;
+
+        $.get("https://api.rootnet.in/covid19-in/stats/latest", function (response) {
+            var response = response;
+            console.log(response);
+            length = response.data.regional.length;
+            totalCases.innerHTML = response.data.regional[0].totalConfirmed;
+            deaths.innerHTML = response.data.regional[0].deaths;
+            recovered.innerHTML = response.data.regional[0].discharged;
+
+            for (var i = 0; i <= length; i++) {
+                $("table").append("<tr><td>" + (i + 1) + "</td><td>" + response.lastRefreshed + "</td><td>" + response.data.regional[i].loc + "</td><td>" + response.data.regional[i].totalConfirmed + "</td><td>" + response.data.regional[i].discharged + "</td><td>" + response.data.regional[i].deaths + "</td>");
+            }
+        });
+    }, "jsonp");
+
+</script>
+
+</html>
+
